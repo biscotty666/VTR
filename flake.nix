@@ -39,6 +39,7 @@
             folium
             mapclassify
             scipy
+            networkx
             shapely
             xarray
             rioxarray
