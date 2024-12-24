@@ -3,3 +3,4 @@ venvDir/
 **/.ipynb_checkpoints
 .direnv/
 .envrc
+**/__pycache__/

@@ -20,7 +20,12 @@ def extractOverlay(path_in: str, path_out: str,
         overlay,
         how="intersection"
     )
-    overlaid.drop('FID', axis=1, inplace=True)
+    try:
+        if 'FID' in overlaid.columns:
+            overlaid.drop('FID', axis=1, inplace=True)
+            print("Here")
+    except:
+        print(f"{overlaid.columns}")
 
     print(f"{overlaid.shape=}")
     print(f"{name.shape=}")

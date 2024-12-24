@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="http://www.ngdc.noaa.gov/metadata/published/xsd/ngdcSchema/schema.xsd">
+   <idinfo>
+      <datsetid>76c6cce9-3547-4fa9-9161-8016b2f78452</datsetid>
+      <citation>
+         <citeinfo>
+            <origin>Earth Data Analysis Center</origin>
+            <pubdate>20190228</pubdate>
+            <title>Bernalillo County Landsat Mosaic, 2014</title>
+            <geoform>remote-sensing image</geoform>
+            <onlink>http://rgis.unm.edu</onlink>
+            <onlink>https://gstore.unm.edu/apps/rgis/datasets/76c6cce9-3547-4fa9-9161-8016b2f78452/services/ogc/wms?SERVICE=wms&amp;REQUEST=GetCapabilities&amp;VERSION=1.1.1</onlink>
+            <onlink>https://gstore.unm.edu/apps/rgis/datasets/76c6cce9-3547-4fa9-9161-8016b2f78452/services/ogc/wcs?SERVICE=wcs&amp;REQUEST=GetCapabilities&amp;VERSION=1.1.2</onlink>
+            <onlink>https://gstore.unm.edu/apps/rgis/datasets/76c6cce9-3547-4fa9-9161-8016b2f78452/bernalillocounty.original.img</onlink>
+            <onlink>https://gstore.unm.edu/apps/rgis/datasets/76c6cce9-3547-4fa9-9161-8016b2f78452/metadata/FGDC-STD-001-1998.xml</onlink>
+            <onlink>https://gstore.unm.edu/apps/rgis/datasets/76c6cce9-3547-4fa9-9161-8016b2f78452/metadata/FGDC-STD-001-1998.html</onlink>
+            <onlink>https://gstore.unm.edu/apps/rgis/datasets/76c6cce9-3547-4fa9-9161-8016b2f78452/metadata/ISO-19115:2003.xml</onlink>
+            <onlink>https://gstore.unm.edu/apps/rgis/datasets/76c6cce9-3547-4fa9-9161-8016b2f78452/metadata/ISO-19115:2003.html</onlink>
+         </citeinfo>
+      </citation>
+      <descript>
+         <abstract>Twenty-five cloudless Landsat Operational Land Imager (OLI) images were acquired
+            over New Mexico in order to create this Landsat image mosaic which covers the entire
+            state. The images were acquired from eight separate dates along five orbital paths
+            ranging from between May to July of 2014. The imagery has a 30 meter spatial resolution
+            and is best viewed at 1:80,000 scale or smaller. The imagery includes 7 bands (layers)
+            of spectral reflectance information ranging from the visible blue to the mid-infrared
+            wavelengths. Band 1 represents a short-wavelength blue (ultra-blue) used primarily to
+            show areas in the image attenuated by haze, but it can also penetrate and map features
+            in shallow water bodies; Band 2 represents surface reflectance in the visible blue
+            enhancing water quality and minerals; Band 3 represents surface reflectance in the
+            visible green; Band 4 represents surface reflectance in the visible red enhancing
+            chlorophyll absorption and iron-rich minerals; Band 5 represents surface reflectance in
+            the near-infrared enhancing healthy vegetation reflectance and water absorption; Band 6
+            represents surface reflectance in the mid-infrared enhancing geologic features and
+            vegetative and soil moisture absorption; and Band 7 represents surface reflectance in
+            the further mid-infrared or short-wave infrared enhancing clays, gypsum and water
+            absorption. A display of Bands 4, 3, and 2 in red, green, and blue provides a natural
+            color display. A display of Bands 5, 4, and 3 in red, green, and blue provides a
+            color-infrared display where healthy vegetation appears red. A display of Bands 7, 5,
+            and 1 in red, green and blue creates a display that enhances geologic features in reds
+            and blues and healthy vegetation in green.</abstract>
+         <purpose>These data depict geographic features on the surface of the earth. The Landsat OLI
+            image mosaic can serve a variety of purposes, from interim base maps to field references
+            for earth science investigations and analysis. This mosaic is useful as a layer in a
+            geographic information system (GIS) and as a tool for providing geo-spatial analysis and
+            reference, especially at the state-wide level at scales of 1:80,000 or
+            smaller.</purpose>
+      </descript>
+      <timeperd>
+         <timeinfo>
+            <rngdates>
+               <begdate>201405</begdate>
+               <begtime>Unknown</begtime>
+               <enddate>201407</enddate>
+               <endtime>Unknown</endtime>
+            </rngdates>
+         </timeinfo>
+         <current>ground condition</current>
+      </timeperd>
+      <status>
+         <progress>Complete</progress>
+         <update>None planned</update>
+      </status>
+      <spdom>
+         <bounding>
+            <westbc>-107.196527</westbc>
+            <eastbc>-106.148442</eastbc>
+            <northbc>35.219706</northbc>
+            <southbc>34.869284</southbc>
+         </bounding>
+      </spdom>
+      <keywords>
+         <theme>
+            <themekt>ISO 19115 Topic Categories</themekt>
+            <themekey>imageryBaseMapsEarthCover</themekey>
+         </theme>
+         <theme>
+            <themekt>Unknown</themekt>
+            <themekey>Landsat</themekey>
+            <themekey>Landsat Operational Land Imager</themekey>
+            <themekey>OLI</themekey>
+            <themekey>satellite image mosaic</themekey>
+         </theme>
+         <place>
+            <placekt>Spatial Reference System Identifiers</placekt>
+            <placekey>EPSG:4326</placekey>
+            <placekey>EPSG:</placekey>
+         </place>
+         <place>
+            <placekt>Spatial Reference System Identifiers</placekt>
+            <placekey>EPSG:4326</placekey>
+            <placekey>EPSG:4326</placekey>
+            <placekey>EPSG:32613</placekey>
+         </place>
+         <place>
+            <placekt>Unknown</placekt>
+            <placekey>Bernalillo County</placekey>
+            <placekey>New Mexico</placekey>
+         </place>
+      </keywords>
+      <accconst>No access constraints</accconst>
+      <useconst>None. Resource Geographic Information System (RGIS) Program assumes no liability for
+         misuse of the data. Data should be used at the scale for which they were intended. No
+         warranty, expressed, or implied, is made by Earth Data Analysis Center (EDAC) regarding the
+         utility of the data on any other system, nor shall the act of distribution constitute such
+         warranty.</useconst>
+      <ptcontac>
+         <cntinfo>
+            <cntorgp>
+               <cntorg>Earth Data Analysis Center</cntorg>
+            </cntorgp>
+            <cntpos>Clearinghouse Manager</cntpos>
+            <cntaddr>
+               <addrtype>mailing and physical address</addrtype>
+               <address>MSC01 1110</address>
+               <address>1 University of New Mexico</address>
+               <city>Albuquerque</city>
+               <state>NM</state>
+               <postal>87131-0001</postal>
+               <country>USA</country>
+            </cntaddr>
+            <cntvoice>505-277-3622 ext. 230</cntvoice>
+            <cntfax>505-277-3614</cntfax>
+            <cntemail>clearinghouse@edac.unm.edu</cntemail>
+            <hours>0800 - 1700 MT, M-F -7 hours GMT</hours>
+         </cntinfo>
+      </ptcontac>
+      <browse>
+         <browsen>bernalillocounty.img</browsen>
+         <browsed>Bernalillo County Landsat Mosaic, 2014</browsed>
+         <browset/>
+      </browse>
+      <native>Microsoft Windows Vista Version 6.1 (Build 7601) Service Pack 1; ESRI ArcCatalog
+         9.3.1.4000</native>
+      <crossref>
+         <citeinfo>
+            <origin>Earth Data Analysis Center</origin>
+            <pubdate>201408</pubdate>
+            <title>Landsat Operational Land Imagery (OLI) Image Mosaic of New Mexico (2011)</title>
+            <geoform>remote-sensing image</geoform>
+         </citeinfo>
+      </crossref>
+   </idinfo>
+   <dataqual>
+      <logic>N/A</logic>
+      <complete>Complete.</complete>
+      <lineage>
+         <srcinfo>
+            <srccite>
+               <citeinfo>
+                  <origin>Earth Data Analysis Center</origin>
+                  <pubdate>Unknown</pubdate>
+                  <title>Landsat Operational Land Imagery (OLI) Image Mosaic of New Mexico (2014)</title>
+                  <geoform>remote-sensing image</geoform>
+               </citeinfo>
+            </srccite>
+            <typesrc>online</typesrc>
+            <srctime>
+               <timeinfo>
+                  <rngdates>
+                     <begdate>201405</begdate>
+                     <enddate>201407</enddate>
+                  </rngdates>
+               </timeinfo>
+               <srccurr>ground condition</srccurr>
+            </srctime>
+            <srccitea>Georectifed Image</srccitea>
+            <srccontr>Digital Georectifed Image.</srccontr>
+         </srcinfo>
+         <procstep>
+            <procdesc>25 Landsat images were downloaded, imported, calibrated to each other and
+               mosaicked together.  Mosaic was clipped to the county boundary.</procdesc>
+            <procdate>201408</procdate>
+            <proccont>
+               <cntinfo>
+                  <cntperp>
+                     <cntper>Paul Neville</cntper>
+                     <cntorg>Earth Data Analysis Center</cntorg>
+                  </cntperp>
+                  <cntpos>Remote Sensing Specialist</cntpos>
+                  <cntaddr>
+                     <addrtype>mailing address</addrtype>
+                     <address>MSC01 1110</address>
+                     <address>1 University of New Mexico</address>
+                     <city>Albuquerque</city>
+                     <state>NM</state>
+                     <postal>87104</postal>
+                     <country>USA</country>
+                  </cntaddr>
+                  <cntvoice>505.277.3622 (ext.244)</cntvoice>
+                  <cntfax>505.277.3614</cntfax>
+                  <cntemail>pneville@edac.unm.edu</cntemail>
+                  <hours>8:00 AM - 5:00 PM MT M-F</hours>
+               </cntinfo>
+            </proccont>
+         </procstep>
+      </lineage>
+   </dataqual>
+   <spdoinfo>
+      <indspref>Harding County</indspref>
+      <direct>Raster</direct>
+      <rastinfo>
+         <cvaltype>unsigned eight-bit integer</cvaltype>
+         <rasttype>Pixel</rasttype>
+         <rowcount>1349</rowcount>
+         <colcount>3165</colcount>
+         <vrtcount>1</vrtcount>
+      </rastinfo>
+   </spdoinfo>
+   <spref>
+      <horizsys>
+         <planar>
+            <gridsys>
+               <gridsysn>Universal Transverse Mercator</gridsysn>
+               <utm>
+                  <utmzone>13</utmzone>
+                  <transmer>
+                     <sfctrmer>0.999600</sfctrmer>
+                     <longcm>-105.000000</longcm>
+                     <latprjo>0.000000</latprjo>
+                     <feast>500000.000000</feast>
+                     <fnorth>0.000000</fnorth>
+                  </transmer>
+               </utm>
+            </gridsys>
+            <planci>
+               <plance>row and column</plance>
+               <coordrep>
+                  <absres>1</absres>
+                  <ordres>1</ordres>
+               </coordrep>
+               <plandu>meters</plandu>
+            </planci>
+         </planar>
+         <geodetic>
+            <horizdn>UTM Zone 13, Northern Hemisphere</horizdn>
+            <ellips>WGS 84</ellips>
+            <semiaxis>6378137</semiaxis>
+            <denflat>298.257223563</denflat>
+         </geodetic>
+      </horizsys>
+   </spref>
+   <distinfo>
+      <distrib>
+         <cntinfo>
+            <cntorgp>
+               <cntorg>Earth Data Analysis Center</cntorg>
+            </cntorgp>
+            <cntpos>Clearinghouse Manager</cntpos>
+            <cntaddr>
+               <addrtype>mailing and physical address</addrtype>
+               <address>MSC01 1110</address>
+               <address>1 University of New Mexico</address>
+               <city>Albuquerque</city>
+               <state>NM</state>
+               <postal>87131-0001</postal>
+               <country>USA</country>
+            </cntaddr>
+            <cntvoice>505-277-3622 ext. 230</cntvoice>
+            <cntfax>505-277-3614</cntfax>
+            <cntemail>clearinghouse@edac.unm.edu</cntemail>
+            <hours>0800 - 1700 MT, M-F -7 hours GMT</hours>
+         </cntinfo>
+      </distrib>
+      <resdesc>Downloadable Data</resdesc>
+      <distliab>The material on this site is made available as a public service. Maps and data are to be used for reference purposes only and the Earth Data Analysis Center (EDAC), Resource Geographic Information System (RGIS) and The University of New Mexico are not responsible for any inaccuracies herein contained. No responsibility is assumed for damages or other liabilities due to the accuracy, availability, use or misuse of the information herein provided. Unless otherwise indicated in the documentation (metadata) for individual data sets, information on this site is public domain and may be copied without permission; citation of the source is appreciated.</distliab>
+      <stdorder>
+         <digform>
+            <digtinfo>
+               <formname>ERDAS Imagine (img)</formname>
+               <transize>57</transize>
+            </digtinfo>
+            <digtopt>
+               <onlinopt>
+                  <computer>
+                     <networka>
+                        <networkr>https://gstore.unm.edu/apps/rgis/datasets/76c6cce9-3547-4fa9-9161-8016b2f78452/bernalillocounty.original.img</networkr>
+                     </networka>
+                  </computer>
+                  <accinstr>Download from Resource Geographic Information System (RGIS) at http://rgis.unm.edu.</accinstr>
+               </onlinopt>
+            </digtopt>
+         </digform>
+         <fees>None. The files are available to download from Resource Geographic Information System (RGIS) (http://rgis.unm.edu).</fees>
+         <ordering>Contact Earth Data Analysis Center at clearinghouse@edac.unm.edu</ordering>
+      </stdorder>
+      <custom>Contact Earth Data Analysis Center at clearinghouse@edac.unm.edu</custom>
+      <techpreq>Adequate computer capability is the only technical prerequisite for viewing data in digital form.</techpreq>
+   </distinfo>
+   <metainfo>
+      <metd>20200204</metd>
+      <metc>
+         <cntinfo>
+            <cntorgp>
+               <cntorg>Earth Data Analysis Center</cntorg>
+            </cntorgp>
+            <cntpos>Clearinghouse Manager</cntpos>
+            <cntaddr>
+               <addrtype>mailing and physical address</addrtype>
+               <address>MSC01 1110</address>
+               <address>1 University of New Mexico</address>
+               <city>Albuquerque</city>
+               <state>NM</state>
+               <postal>87131-0001</postal>
+               <country>USA</country>
+            </cntaddr>
+            <cntvoice>505-277-3622 ext. 230</cntvoice>
+            <cntfax>505-277-3614</cntfax>
+            <cntemail>clearinghouse@edac.unm.edu</cntemail>
+            <hours>0800 - 1700 MT, M-F -7 hours GMT</hours>
+         </cntinfo>
+      </metc>
+      <metstdn>FGDC Content Standards for Digital Geospatial Metadata</metstdn>
+      <metstdv>FGDC-STD-001-1998</metstdv>
+      <mettc>local time</mettc>
+      <metextns>
+         <onlink>http://www.fgdc.gov/standards/projects/FGDC-standards-projects/csdgm_rs_ex/MetadataRemoteSensingExtens.pdf</onlink>
+         <metprof>Extensions for Remote Sensing Metadata, FGDC-STD-012-2002</metprof>
+      </metextns>
+   </metainfo>
+</metadata>
