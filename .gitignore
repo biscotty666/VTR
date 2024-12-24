@@ -4,3 +4,6 @@ venvDir/
 .direnv/
 .envrc
 **/__pycache__/
+**/Untitled.ipynb
+data/tmp/
+data/download
