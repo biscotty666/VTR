@@ -1,3 +1,4 @@
+**/cache/
 venvDir/
 .virtual_documents/
 **/.ipynb_checkpoints
