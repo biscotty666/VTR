@@ -1,0 +1,7 @@
+id:name:addr
+1:Home:6119 Mustang Ln NW, Albuquerque, NM 87120
+2:Sprouts:5600 Coors Blvd NW, Albuquerque, NM 78120
+3:Community Center:4900 Kachina NW, Albuquerque, NM 87120
+4:Botanical Gardens:2601 Central Ave NW, Albuquerque, NM 87104
+5:UNM:University of New Mexico, Albuquerque, NM 87131
+
