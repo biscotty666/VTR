@@ -22,13 +22,17 @@
             pip
             jupyter
             widgetsnbextension
+            googlemaps
             ipympl
             jupyter-nbextensions-configurator
             jedi-language-server
             osmnx
             ipywidgets
+            libpysal
             mypy
             pandas
+            us
+            seaborn
             numpy
             geopandas
             geodatasets
@@ -36,6 +40,7 @@
             geopy
             matplotlib
             pyproj
+            osmpythontools
             folium
             mapclassify
             scipy
