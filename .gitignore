@@ -8,3 +8,9 @@ venvDir/
 **/Untitled.ipynb
 data/tmp/
 data/download
+data/local/abq_bldgs.gpkg
+src
+src2
+osmnx-examples
+images
+html
