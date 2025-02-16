@@ -6,9 +6,7 @@ venvDir/
 .envrc
 **/__pycache__/
 **/Untitled.ipynb
-data/tmp/
-data/download
-data/local/abq_bldgs.gpkg
+data/
 src
 src2
 osmnx-examples
