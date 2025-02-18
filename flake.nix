@@ -57,7 +57,7 @@
         '';
 
         shellHook = ''
-            export BROWSER=floorp
+            export BROWSER=brave
                 # Tells pip to put packages into $PIP_PREFIX instead of the usual locations.
     # See https://pip.pypa.io/en/stable/user_guide/#environment-variables.
             export PIP_PREFIX=$(pwd)/venvDir
