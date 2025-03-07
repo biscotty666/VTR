@@ -2,6 +2,7 @@
   inputs = {
     nixpkgs = {
       url = "github:nixos/nixpkgs/nixos-unstable";
+
     };
     flake-utils = {
       url = "github:numtide/flake-utils";
@@ -12,6 +13,8 @@
       pkgs = import nixpkgs {
         inherit system;
       };
+      #packageOverrides = pkgs.callPackage ./python-packages.nix {};
+      #python3 = pkgs.python3.override { inherit packageOverrides; };
     in {
       devShell = pkgs.mkShell {
         name = "python-venv";
@@ -30,6 +33,7 @@
             ipywidgets
             libpysal
             mypy
+            hvplot
             pandas
             us
             seaborn
@@ -48,6 +52,13 @@
             shapely
             xarray
             rioxarray
+            dask
+            intake
+            intake-parquet
+            pooch
+            fiona
+            plotly
+            s3fs
             rasterio
           ]))
         ];
