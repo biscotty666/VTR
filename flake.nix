@@ -20,6 +20,40 @@
         name = "python-venv";
         venvDir = "./.venv";
         buildInputs = with pkgs; [
+            R
+            rPackages.pagedown
+            rPackages.tidyverse
+            rPackages.sf
+            rPackages.terra
+            rPackages.leaflet
+            rPackages.leaflet_extras
+            rPackages.leaflet_extras2
+            rPackages.maps
+            rPackages.leafsync
+            rPackages.elevatr
+            rPackages.patchwork
+            rPackages.XML
+            rPackages.xml2
+            rPackages.gpx
+            rPackages.tidygeocoder
+            rPackages.crsuggest
+            rPackages.rnaturalearth
+            rPackages.rnaturalearthdata
+            rPackages.osmdata
+            rPackages.viridis
+            rPackages.tmap
+            rPackages.plotly
+            rPackages.geodata
+            rPackages.tidyterra
+            rPackages.htmlwidgets
+            rPackages.trackeR
+            rPackages.trajr
+            rPackages.webshot
+            rPackages.reticulate
+            chromium
+            pandoc
+            texlive.combined.scheme-full
+            rstudio
           (python3.withPackages(ps: with ps; [
             ipython
             pip
