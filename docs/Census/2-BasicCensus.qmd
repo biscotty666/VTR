@@ -1,0 +1,47 @@
+---
+title: "Basic Census data"
+format: gfm
+---
+
+```{r, setup, include=FALSE}
+knitr::opts_chunk$set(paged.print = FALSE)
+```
+
+```{r}
+library(tidycensus)
+```
+
+```{r}
+vars <- c(
+  Total = "B05006_001",
+  Europe = "B05006_002",
+  Asia = "B05006_047",
+  China = "B05006_049",
+  Korea = "B05006_056",
+  Vietnam = "B05006_077",
+  Africa = "B05006_095",
+  Latin = "B05006_139",
+  Mexico = "B05006_160",
+  Canada = "B05006_177"
+)
+```
+
+```{r}
+origin_foreign_born <- get_acs(
+  geography = "county",
+  state = "NM",
+  variables = vars,
+  year = 2023,
+  geometry = TRUE,
+  cache_table = TRUE
+)
+```
+
+```{r}
+str(origin_foreign_born)
+```
+
+```{r}
+v23 <- load_variables(2023, "acs5", cache = TRUE)
+View(v23)
+```

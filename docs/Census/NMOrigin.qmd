@@ -1,0 +1,85 @@
+---
+title: "Basic Census data"
+format: gfm
+---
+
+```{r, setup, include=FALSE}
+knitr::opts_chunk$set(paged.print = FALSE)
+```
+
+```{r message=FALSE}
+library(tidycensus)
+library(tidyverse)
+options(tigris_use_cache = TRUE)
+```
+
+```{r}
+vars = c(
+  Total = "B01001_001",
+  Asia = "B05006_047",
+  China = "B05006_049",
+  Vietnam = "B05006_077",
+  Europe = "B05006_002",
+  Africa = "B05006_095",
+  Latin = "B05006_139",
+  Mexico = "B05006_160"
+)
+```
+
+```{r}
+Origins <- get_acs(
+  geography = "county",
+  state = "NM",
+  variables = vars,
+  summary_var = "B05006_001",
+  year = 2023,
+  cache_table = TRUE,
+)
+```
+
+```{r}
+library(tigris)
+
+nm_counties <- counties("NM")
+```
+
+```{r}
+str(Origins)
+```
+
+```{r}
+Origins <- Origins |> left_join(
+  nm_counties,
+  by = "GEOID"
+) |> select(GEOID, variable, estimate, moe,
+            county = NAME.y, summary_est,summary_moe,
+            geometry)
+str(Origins)
+```
+
+```{r}
+Origins |> 
+  group_by(GEOID, variable) |> 
+  summarise(estimate = sum(estimate), sum_est = summary_est)
+```
+
+```{r}
+pop_totals <- Origins |> 
+  filter(variable == "Total") |> 
+  select(GEOID, Total = estimate)
+pop_totals
+```
+
+```{r}
+Origins <- Origins |> left_join(
+  pop_totals, by = "GEOID"
+) |> 
+  filter(variable != "Total") |> 
+  select(GEOID, county, variable, estimate, 
+         summary_est, total=Total, everything())
+str(Origins)
+```
+
+```{r}
+saveRDS(Origins, "origins.rds")
+```

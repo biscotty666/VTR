@@ -79,6 +79,7 @@
             pandoc
             texlive.combined.scheme-full
             rstudio
+            quarto
           (python3.withPackages(ps: with ps; [
             ipython
             pip
