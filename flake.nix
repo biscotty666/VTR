@@ -21,35 +21,60 @@
         venvDir = "./.venv";
         buildInputs = with pkgs; [
             R
-            rPackages.pagedown
-            rPackages.tidyverse
-            rPackages.sf
-            rPackages.terra
+            rPackages.XML
+            rPackages.censusapi
+            rPackages.crsuggest
+            rPackages.elevatr
+            rPackages.geobr
+            rPackages.geodata
+            rPackages.geofacet
+            rPackages.ggbeeswarm
+            rPackages.ggiraph
+            rPackages.ggridges
+            rPackages.GWmodel
+            rPackages.gpx
+            rPackages.htmlwidgets
+            rPackages.httr
+            rPackages.inegiR
+            rPackages.ipumsr
+            rPackages.jsonlite
             rPackages.leaflet
             rPackages.leaflet_extras
             rPackages.leaflet_extras2
+            rPackages.lehdr
+            rPackages.mapboxapi
+            rPackages.mapview
             rPackages.maps
-            rPackages.leafsync
-            rPackages.elevatr
+            rPackages.osmdata
+            rPackages.pagedown
             rPackages.patchwork
-            rPackages.XML
-            rPackages.xml2
-            rPackages.gpx
-            rPackages.tidygeocoder
-            rPackages.crsuggest
+            rPackages.plotly
+            rPackages.raster
+            rPackages.readr
+            rPackages.reticulate
             rPackages.rnaturalearth
             rPackages.rnaturalearthdata
-            rPackages.osmdata
-            rPackages.viridis
-            rPackages.tmap
-            rPackages.plotly
-            rPackages.geodata
+            rPackages.segregation
+            rPackages.sf
+            rPackages.spatialreg
+            rPackages.spdep
+            rPackages.srvyr
+            rPackages.survey
+            rPackages.tidycensus
+            rPackages.tidyr
+            rPackages.terra
+            rPackages.tidygeocoder
             rPackages.tidyterra
-            rPackages.htmlwidgets
+            rPackages.tidyverse
+            rPackages.tidyUSDA
+            rPackages.tigris
+            rPackages.tmap
             rPackages.trackeR
             rPackages.trajr
+            rPackages.tsibble
+            rPackages.viridis
             rPackages.webshot
-            rPackages.reticulate
+            rPackages.xml2
             chromium
             pandoc
             texlive.combined.scheme-full
