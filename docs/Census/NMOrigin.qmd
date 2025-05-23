@@ -13,6 +13,54 @@ library(tidyverse)
 options(tigris_use_cache = TRUE)
 ```
 
+# Variables of interest
+
+## 2023
+
+### Place of Birth
+
+```         
+Total B05002_001
+Native B05002_002
+Foreign Born B5002_013
+```
+
+### Of Foreign born
+
+```         
+Total B05006_001
+Europe B05006_002
+Asia B05006_047
+Eastern Asia B05006_048
+China B05006_049
+South Central Asia B05006_056
+South Eastern Asia B05006_068
+Vietnam B05006_007
+Western Asia B05006_079
+Africa B05006_095
+Oceania B05006_130
+Latin America B05006_139
+Central America B05006_154
+Mexico B05006_160
+South America B05006_164
+Canada B05006_177
+```
+
+### Race
+
+```         
+Total B02001_001
+Hispanic/Latino B03002_012
+```
+
+### Measures
+
+```         
+Per capita income (inf adj) B19301_001
+Median income B19326_001
+Gini B19083_001
+```
+
 ```{r}
 vars = c(
   Total = "B01001_001",
@@ -82,4 +130,65 @@ str(Origins)
 
 ```{r}
 saveRDS(Origins, "origins.rds")
+```
+
+```{r}
+Origins <- Origins |> 
+  group_by(county, variable) |> 
+  summarise(estimate = sum(estimate),
+            foreign = summary_est, total = total) |> 
+  mutate(
+    pct_of_fb = estimate / foreign,
+    pct_of_tot = estimate / total
+  ) |> 
+  select(-foreign, -total)
+Origins
+```
+
+```{r}
+Origins |> 
+  group_by(variable) |> 
+  summarise(
+    origin_tot = sum(estimate),
+    pct_fb = mean(pct_of_fb),
+    pct_tot = mean(pct_of_tot)
+  ) |> 
+  arrange(desc(origin_tot)) |> 
+  ggplot(aes(x = variable, y = origin_tot)) +
+  geom_col()
+```
+
+```{r}
+Origins |> 
+  group_by(county, variable) |> 
+  summarise(
+    origin_tot = sum(estimate),
+    pct_fb = mean(pct_of_fb),
+    pct_tot = mean(pct_of_tot)
+  ) |> 
+  mutate(variable = fct_reorder(variable, desc(origin_tot))) |> 
+  ggplot(aes(x = variable, y = origin_tot, fill = county)) +
+  geom_col() +
+  labs(x = "Country of Origin",
+       y = "Population",
+       title = "Origins of foreign-born New Mexico population") +
+  scale_y_continuous(labels = scales::comma) +
+  labs(title)
+```
+
+```{r}
+Origin_wide <- Origins |> 
+  group_by(county, variable) |> 
+  summarise(
+    origin_tot = sum(estimate),
+    pct_fb = mean(pct_of_fb),
+    pct_tot = mean(pct_of_tot)
+  ) |> 
+  pivot_wider(names_from = variable,
+              values_from = c(origin_tot, pct_fb, pct_tot))
+```
+
+```{r}
+v23 <- load_variables(2023, "acs5", cache = TRUE)
+View(v23)
 ```
