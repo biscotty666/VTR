@@ -10,7 +10,13 @@ knitr::opts_chunk$set(paged.print = FALSE)
 ```{r message=FALSE}
 library(tidycensus)
 library(tidyverse)
+library(tigris)
 options(tigris_use_cache = TRUE)
+```
+
+
+```{r}
+nm_counties <- counties("NM")
 ```
 
 # Variables of interest
@@ -48,9 +54,17 @@ Canada B05006_177
 
 ### Race
 
+These variables include combinations of races
+
 ```         
-Total B02001_001
-Hispanic/Latino B03002_012
+White  B02008_001
+Black  B02009_001
+NativeAmerican  B02010_001
+Asian  B02011_001
+
+Hispanic B03001_003
+HispanicMexican B03001_004
+HispanicCA B03001_008
 ```
 
 ### Measures
@@ -62,23 +76,64 @@ Gini B19083_001
 ```
 
 ```{r}
-vars = c(
-  Total = "B01001_001",
-  Asia = "B05006_047",
-  China = "B05006_049",
-  Vietnam = "B05006_077",
-  Europe = "B05006_002",
-  Africa = "B05006_095",
-  Latin = "B05006_139",
-  Mexico = "B05006_160"
+pob_vars = c(
+  Native = "B05002_002",
+  ForeignBorn = "B05002_013"
 )
 ```
 
 ```{r}
-Origins <- get_acs(
+native_foreign <- get_acs(
   geography = "county",
   state = "NM",
-  variables = vars,
+  variables = pob_vars,
+  summary_var = "B05002_001",
+  year = 2023,
+  cache_table = TRUE,
+)
+```
+
+```{r}
+native_foreign <- native_foreign |> left_join(
+  nm_counties,
+  by = "GEOID"
+)  |> select(GEOID, variable, estimate, moe,
+            county = NAME.y, summary_est, 
+            geometry)
+str(native_foreign)
+```
+```{r}
+ggplot(native_foreign, aes(x = variable, y = estimate, fill = county)) +
+  geom_col()
+```
+
+
+
+```{r}
+orig_vars = c(
+  Europe = "B05006_002",
+  Asia = "B05006_047",
+  Eastern_Asia = "B05006_048",
+  China = "B05006_049",
+  SC_Asia = "B05006_056",
+  SE_Asia = "B05006_068",
+  Vietnam = "B05006_007",
+  Western_Asia = "B05006_079",
+  Africa = "B05006_095",
+  Oceania = "B05006_130",
+  Latin_America = "B05006_139",
+  Central_America = "B05006_154",
+  Mexico = "B05006_160",
+  South_America = "B05006_164",
+  Canada = "B05006_177"
+)
+```
+
+```{r}
+foreign_origin <- get_acs(
+  geography = "county",
+  state = "NM",
+  variables = orig_vars,
   summary_var = "B05006_001",
   year = 2023,
   cache_table = TRUE,
@@ -86,23 +141,90 @@ Origins <- get_acs(
 ```
 
 ```{r}
-library(tigris)
-
-nm_counties <- counties("NM")
-```
-
-```{r}
-str(Origins)
-```
-
-```{r}
-Origins <- Origins |> left_join(
+foreign_origin <- foreign_origin |> left_join(
   nm_counties,
   by = "GEOID"
-) |> select(GEOID, variable, estimate, moe,
-            county = NAME.y, summary_est,summary_moe,
+)  |> select(GEOID, variable, estimate, moe,
+            county = NAME.y, summary_est, 
             geometry)
-str(Origins)
+str(foreign_origin)
+```
+```{r}
+continents <- c(
+  "Europe",
+  "Central_America",
+  "Asia",
+  "South_America",
+  "Africa",
+  "Oceania",
+  "Canada"
+)
+```
+
+```{r fig.height=7}
+foreign_origin |> 
+  filter(variable %in% continents) |> 
+  mutate(variable = fct_reorder(variable, desc(estimate))) |> 
+  ggplot(aes(x = variable, y = estimate, fill = county)) +
+  geom_col() +
+  labs(x = "Continent",
+       y = "Population",
+       fill = "County",
+       title = "Origins of foreign-born New Mexico population") +
+  scale_y_continuous(labels = scales::comma) +
+  theme_gray() +
+  theme(axis.text.x = element_text(angle = 30))
+```
+
+
+```{r}
+race_vars = c(
+  White = "B02008_001",
+  Black = "B02009_001",
+  Native_American = "B02010_001",
+  Asian = "B02011_001"
+)
+
+races <- get_acs(
+  geography = "county",
+  state = "NM",
+  variables = race_vars,
+  year = 2023,
+  cache_table = TRUE,
+)
+```
+
+```{r}
+hisp_vars = c(
+  Hispanic = "B03001_003",
+  Hispanic_Mexican  = "B03001_004",
+  Hispanic_CA = "B03001_008"
+)
+
+hispanic <- get_acs(
+  geography = "county",
+  state = "NM",
+  variables = hisp_vars,
+  summary_var = "B03001_001",
+  year = 2023,
+  cache_table = TRUE,
+)
+```
+
+```{r}
+measure_vars = c(
+  PC_Income = "B19301_001",
+  Med_Income = "B19326_001",
+  Gini = "B19083_001"
+)
+
+measures <- get_acs(
+  geography = "county",
+  state = "NM",
+  variables = measure_vars,
+  year = 2023,
+  cache_table = TRUE,
+)
 ```
 
 ```{r}
