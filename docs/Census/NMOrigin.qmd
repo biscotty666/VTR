@@ -1,6 +1,9 @@
 ---
-title: "Basic Census data"
-format: gfm
+title: "New Mexico - Race and Country of Origin"
+format: 
+  gfm: default
+  html: 
+    toc: true
 ---
 
 ```{r, setup, include=FALSE}
@@ -11,18 +14,23 @@ knitr::opts_chunk$set(paged.print = FALSE)
 library(tidycensus)
 library(tidyverse)
 library(tigris)
+library(patchwork)
 options(tigris_use_cache = TRUE)
 ```
+
+## Motivation
+
+New Mexico's racial demographics are different from the US overall in a number of ways due to its unique history. Firstly, New Mexico has relatively large Hispanic and Native American populations. Secondly, the breakdown of the Hispanic population is unlike any other, in that a significant portion do not identify with Latin America, but directly with Spain. New Mexicans were not strong supporters of the Mexican revolution, and only about 30 years later, New Mexico became part of the US under the Treaty of Hidalgo in 1948.
 
 ```{r}
 nm_counties <- counties("NM")
 ```
 
-# Variables of interest
+### Variables of interest
 
-## 2023
+2023
 
-### Place of Birth
+Place of Birth
 
 ```         
 Total B05002_001
@@ -30,7 +38,7 @@ Native B05002_002
 Foreign Born B5002_013
 ```
 
-### Of Foreign born
+Of Foreign born
 
 ```         
 Total B05006_001
@@ -51,7 +59,7 @@ South America B05006_164
 Canada B05006_177
 ```
 
-### Race
+Race
 
 These variables include combinations of races
 
@@ -66,7 +74,7 @@ HispanicMexican B03001_004
 HispanicCA B03001_008
 ```
 
-### Measures
+Measures
 
 ```         
 Per capita income (inf adj) B19301_001
@@ -99,12 +107,41 @@ native_foreign <- native_foreign |> left_join(
 )  |> select(GEOID, variable, estimate, moe,
             county = NAME.y, summary_est, 
             geometry)
-str(native_foreign)
 ```
 
 ```{r}
 ggplot(native_foreign, aes(x = variable, y = estimate, fill = county)) +
-  geom_col()
+  geom_col() +
+  labs(x = element_blank(),
+       y = "Population",
+       fill = "County",
+       title = "NM Native vs Foreign-born Population",
+       subtitle = "By County",
+       caption = "acs5 2023") +
+  scale_y_continuous(labels = scales::comma) +
+  theme_bw()
+```
+
+```{r}
+native_foreign_us <- get_acs(
+  geography = "us",
+  variables = pob_vars,
+  summary_var = "B05002_001",
+  year = 2023,
+  cache_table = TRUE,
+)
+```
+
+```{r}
+ggplot(native_foreign_us, aes(x = variable, y = estimate)) +
+  geom_col(fill = "navy") +
+  labs(x = element_blank(),
+       y = "Population",
+       title = "US Native vs Foreign-born Population",
+       subtitle = "By County",
+       caption = "acs5 2023") +
+  scale_y_continuous(labels = scales::comma) +
+  theme_bw()
 ```
 
 ```{r}
@@ -145,7 +182,6 @@ foreign_origin <- foreign_origin |> left_join(
 )  |> select(GEOID, variable, estimate, moe,
             county = NAME.y, summary_est, 
             geometry)
-str(foreign_origin)
 ```
 
 ```{r}
@@ -160,7 +196,7 @@ continents <- c(
 )
 ```
 
-```{r fig.height=7}
+```{r fig.height=5}
 foreign_origin |> 
   filter(variable %in% continents) |> 
   mutate(variable = fct_reorder(variable, desc(estimate))) |> 
@@ -226,7 +262,6 @@ races <- get_acs(
     by = "GEOID")  |> 
   select(GEOID, variable, estimate, moe,
             county = NAME.y,geometry)
-str(races)
 ```
 
 ```{r}
@@ -272,11 +307,6 @@ hispanic <- get_acs(
   select(GEOID, variable, estimate, moe,
             county = NAME.y, summary_est, 
             geometry)
-str(hispanic)
-head(hispanic)
-
-hispanic_wd <- hispanic |> 
-  pivot_wider(names_from = variable, values_from = estimate) 
 
 
 hisp <- hispanic |> 
@@ -288,9 +318,27 @@ hisp <- hispanic |>
   group_by(county, variable) |> 
   mutate(pop = sum(estimate)) |> 
   distinct(county, variable, .keep_all = TRUE)
-
-hisp
 ```
+
+```{r}
+hisp_us <- get_acs(
+  geography = "us",
+  variables = hisp_vars,
+  summary_var = "B03001_001",
+  year = 2023,
+  cache_table = TRUE) |> 
+  pivot_wider(names_from = variable, values_from = estimate) |> 
+  rowwise() |> 
+  mutate(Hispanic_Spain = sum(c_across(Hispanic_Spaniard:Hispanic_Spanish_American), na.rm = TRUE)) |> 
+  select(-c("Hispanic_Spaniard", "Hispanic_Spanish", "Hispanic_Spanish_American")) |> 
+  pivot_longer(cols = Non_Hispanic:Hispanic_Spain, names_to = "variable", values_to = "estimate", values_drop_na = T)|> 
+  group_by(variable) |> 
+  mutate(pop = sum(estimate)) |> 
+  distinct(variable, .keep_all = TRUE) |> 
+  mutate(percent = pop / summary_est)
+hisp_us
+```
+
 ```{r}
 hisp |> 
   filter(county %in% counties_top_8$county & !(variable %in% c("Hispanic", "Non_Hispanic"))) |> 
@@ -318,14 +366,33 @@ hispanic |>
   labs(x = "County",
        y = "Population",
        fill = "Continent",
-       title = "Origins of foreign-born New Mexico population",
-       subtitle = "Top 10 Counties by Population") +
+       title = "Hispanic vs Non-Hispanic population in New Mexico",
+       subtitle = "Top 10 Counties by Population",
+       caption = "Source: census.gov acs5 2023") +
   scale_y_continuous(labels = scales::comma) +
-  scale_fill_viridis_d() +
+  scale_fill_viridis_d(labels = c("Hispanic", "Non Hispanic")) +
   theme_gray() +
   theme(axis.text.x = element_text(angle = 30))
 ```
 
+```{r}
+hisp_us
+```
+
+```{r}
+hisp_us |> 
+  filter(variable %in% c("Hispanic", "Non_Hispanic")) |> 
+  ggplot(aes(x = variable, y = estimate)) +
+  geom_col(fill = "cyan", color = "black") +
+  labs(x = "County",
+       y = "Population",
+       title = "Hispanic vs Non-Hispanic population in the US",,
+       caption = "Source: census.gov acs5 2023") +
+  scale_y_continuous(labels = scales::comma) +
+  scale_fill_viridis_d(labels = c("Hispanic", "Non Hispanic")) +
+  theme_gray() +
+  theme(axis.text.x = element_text(angle = 30))
+```
 
 ```{r}
 measure_vars = c(
@@ -340,90 +407,43 @@ measures <- get_acs(
   variables = measure_vars,
   year = 2023,
   cache_table = TRUE,
-)
-```
-
-```{r eval=FALSE}
-Origins |> 
-  group_by(GEOID, variable) |> 
-  summarise(estimate = sum(estimate), sum_est = summary_est)
-```
-
-```{r eval=FALSE}
-pop_totals <- Origins |> 
-  filter(variable == "Total") |> 
-  select(GEOID, Total = estimate)
-pop_totals
-```
-
-```{r eval=FALSE}
-Origins <- Origins |> left_join(
-  pop_totals, by = "GEOID"
 ) |> 
-  filter(variable != "Total") |> 
-  select(GEOID, county, variable, estimate, 
-         summary_est, total=Total, everything())
-str(Origins)
+  left_join(nm_counties,
+            by = "GEOID") |> 
+  select(GEOID, variable, estimate, moe,
+            county = NAME.y, geometry)
+
+
+hisp |>
+  group_by(county) |> 
+  select(county, summary_est) |> 
+  unique() |> 
+  right_join(measures, by = "county") |> 
+  filter(county %in% counties_top_8$county & variable == "Gini") |> 
+  mutate(county = fct_reorder(county, desc(summary_est))) |> 
+  select(c(county, estimate)) |> 
+  rename(gini = estimate)
 ```
 
-```{r eval=FALSE}
-saveRDS(Origins, "origins.rds")
-```
-
-```{r eval=FALSE}
-Origins <- Origins |> 
-  group_by(county, variable) |> 
-  summarise(estimate = sum(estimate),
-            foreign = summary_est, total = total) |> 
-  mutate(
-    pct_of_fb = estimate / foreign,
-    pct_of_tot = estimate / total
-  ) |> 
-  select(-foreign, -total)
-Origins
-```
-
-```{r eval=FALSE}
-Origins |> 
-  group_by(variable) |> 
-  summarise(
-    origin_tot = sum(estimate),
-    pct_fb = mean(pct_of_fb),
-    pct_tot = mean(pct_of_tot)
-  ) |> 
-  arrange(desc(origin_tot)) |> 
-  ggplot(aes(x = variable, y = origin_tot)) +
-  geom_col()
-```
-
-```{r eval=FALSE}
-Origins |> 
-  group_by(county, variable) |> 
-  summarise(
-    origin_tot = sum(estimate),
-    pct_fb = mean(pct_of_fb),
-    pct_tot = mean(pct_of_tot)
-  ) |> 
-  mutate(variable = fct_reorder(variable, desc(origin_tot))) |> 
-  ggplot(aes(x = variable, y = origin_tot, fill = county)) +
-  geom_col() +
-  labs(x = "Country of Origin",
-       y = "Population",
-       title = "Origins of foreign-born New Mexico population") +
+```{r}
+hisp |>
+  group_by(county) |> 
+  select(county, summary_est) |> 
+  unique() |> 
+  right_join(measures, by = "county") |> 
+  filter(county %in% counties_top_8$county & variable %in% c("PC_Income", "Med_Income")) |> 
+  mutate(county = fct_reorder(county, desc(summary_est))) |> 
+  ggplot(aes(x = county, y = estimate, fill = variable)) +
+  geom_col(position = "dodge") +
+  labs(x = "County",
+       y = "Gini Index",
+       title = "New Mexico Income",
+       subtitle = "Top 10 Counties by Population",
+       caption = "Source: census.gov acs5 2023") +
   scale_y_continuous(labels = scales::comma) +
-  labs(title)
-```
-
-```{r eval=FALSE}
-Origin_wide <- Origins |> 
-  group_by(county, variable) |> 
-  summarise(
-    origin_tot = sum(estimate),
-    pct_fb = mean(pct_of_fb),
-    pct_tot = mean(pct_of_tot)
-  ) |> 
-  pivot_wider(names_from = variable,
-              values_from = c(origin_tot, pct_fb, pct_tot))
+  scale_fill_viridis_d(labels = c("Median income", "Per capita income")) +
+  theme_gray() +
+  theme(axis.text.x = element_text(angle = 30))
 ```
 
 ```{r eval=FALSE}
